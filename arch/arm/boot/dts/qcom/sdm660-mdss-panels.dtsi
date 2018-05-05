@@ -1,4 +1,4 @@
-/* Copyright (c) 2016-2018, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2016-2017, The Linux Foundation. All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -26,7 +26,12 @@
 #include "dsi-panel-truly-1080p-video.dtsi"
 #include "dsi-panel-rm67195-amoled-fhd-cmd.dtsi"
 #include "dsi-panel-lgd-incell-sw49106-fhd-video.dtsi"
-
+/* Huaqin modify for ZQL1650-140 by xieguoqiang at 2018/01/23 start */
+#include "dsi-panel-nt36672-1080p-video-txd.dtsi"
+/* Huaqin modify for ZQL1650-140 by xieguoqiang at 2018/01/23 end */
+/* Huaqin modify for lcm bring up by xieguoqiang at 2018/02/26 start */
+#include "dsi-panel-nt36672-1080p-video.dtsi"
+/* Huaqin modify for lcm bring up by xieguoqiang at 2018/02/26 end */
 &soc {
 	dsi_panel_pwr_supply: dsi_panel_pwr_supply {
 		#address-cells = <1>;
