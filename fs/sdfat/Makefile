@@ -13,10 +13,10 @@ sdfat_fs-$(CONFIG_SDFAT_STATISTICS) += statistics.o
 
 
 all:
-	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
+	make -C /lib/fs/sdfat/modules/$(shell uname -r)/build M=$(PWD) modules
 
 clean:
-	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) clean
+	make -C /lib/fs/sdfat/modules/$(shell uname -r)/build M=$(PWD) clean
 
 cscope:
 	rm -rf cscope.files cscope.files
