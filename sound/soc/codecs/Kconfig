@@ -180,7 +180,6 @@ config SND_SOC_ALL_CODECS
 	select SND_SOC_WM9705 if SND_SOC_AC97_BUS
 	select SND_SOC_WM9712 if SND_SOC_AC97_BUS
 	select SND_SOC_WM9713 if SND_SOC_AC97_BUS
-	select SND_SOC_AW87339 if I2C
         help
           Normally ASoC codec drivers are only built if a machine driver which
           uses them is also built since they are only usable with a machine
@@ -994,10 +993,6 @@ config SND_SOC_MSM_HDMI_CODEC_RX
 	help
 	HDMI audio drivers should be built only if the platform
         supports hdmi panel.
-
-config SND_SOC_AW87339
-	tristate "AWINIC AW87339 Smart K audio amplifier"
-	depends on I2C
 
 config SND_SOC_TFA9874
 	tristate "NXP Semiconductors TFA9874 audio amplifier"
