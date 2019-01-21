@@ -55,6 +55,11 @@
 #include "mdss_debug.h"
 #include "mdss_smmu.h"
 #include "mdss_mdp.h"
+/* Huaqin modify for No repetition lcd suspend by qimaokang at 2018/12/07 start*/
+#include <linux/wakelock.h>
+static struct wake_lock early_unblank_wakelock;
+extern bool lcd_suspend_flag;
+/* Huaqin modify for No repetition lcd suspend by qimaokang at 2018/12/07 end*/
 
 #ifdef CONFIG_FB_MSM_TRIPLE_BUFFER
 #define MDSS_FB_NUM 3
@@ -1628,10 +1633,15 @@ static void asus_lcd_early_unblank_func(struct work_struct *work)
 	fbi = mfd->fbi;
 	if (!fbi)
 		return;
-
+/* Huaqin modify for No repetition lcd suspend by qimaokang at 2018/12/07 start*/
+	wake_lock_timeout(&early_unblank_wakelock,msecs_to_jiffies(300));
+/* Huaqin modify for No repetition lcd suspend by qimaokang at 2018/12/07 end*/
 	printk("[Display] Early unblank func +++ \n");
 	fb_blank(fbi, FB_BLANK_UNBLANK);
 	printk("[Display] Early unblank func --- \n");
+/* Huaqin modify for No repetition lcd suspend by qimaokang at 2018/12/07 start*/
+	lcd_suspend_flag = false;
+/* Huaqin modify for No repetition lcd suspend by qimaokang at 2018/12/07 end*/
 
 	mfd->early_unblank_work_queued = false;
 }
@@ -1648,10 +1658,15 @@ static int mdss_fb_pm_suspend(struct device *dev)
 	fbi = mfd->fbi;
 	if (!fbi)
 		return -ENODEV;
-
-	printk("[Display] display suspend, blank display.\n");
-	fb_blank(fbi, FB_BLANK_POWERDOWN);
-
+/* Huaqin modify for No repetition lcd suspend by qimaokang at 2018/12/07 start*/
+	if (mfd->index == 0) {
+		if(lcd_suspend_flag == false) {
+			printk("[Display] display suspend, blank display.\n");
+			fb_blank(fbi, FB_BLANK_POWERDOWN);
+			lcd_suspend_flag = true;
+		}
+	}
+/* Huaqin modify for No repetition lcd suspend by qimaokang at 2018/12/07 end*/
 	dev_dbg(dev, "display pm suspend\n");
 
 	rc = mdss_fb_suspend_sub(mfd);
@@ -5269,6 +5284,9 @@ int __init mdss_fb_init(void)
 		return rc;
 
 	asus_lcd_early_unblank_wq = create_singlethread_workqueue("display_early_wq");
+/* Huaqin modify for No repetition lcd suspend by qimaokang at 2018/12/07 start*/
+	wake_lock_init(&early_unblank_wakelock, WAKE_LOCK_SUSPEND, "early_unblank-update");
+/* Huaqin modify for No repetition lcd suspend by qimaokang at 2018/12/07 end*/
 	return 0;
 }
 
