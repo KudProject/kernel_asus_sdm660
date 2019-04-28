@@ -820,8 +820,9 @@ out_err:
 	return err;
 }
 
+/* Huaqin modify for 1170275 by chenqiang at 2018/4/23 start */
 static int sdcardfs_fillattr(struct vfsmount *mnt, struct inode *inode,
-				struct kstat *lower_stat, struct kstat *stat)
+	struct kstat *lower_stat, struct kstat *stat)
 {
 	struct sdcardfs_inode_info *info = SDCARDFS_I(inode);
 	struct sdcardfs_inode_data *top = top_data_get(info);
@@ -843,6 +844,7 @@ static int sdcardfs_fillattr(struct vfsmount *mnt, struct inode *inode,
 	stat->ctime = lower_stat->ctime;
 	stat->blksize = lower_stat->blksize;
 	stat->blocks = lower_stat->blocks;
+/* Huaqin modify for 1170275 by chenqiang at 2018/4/23 end */
 	data_put(top);
 	return 0;
 }
@@ -868,7 +870,11 @@ static int sdcardfs_getattr(struct vfsmount *mnt, struct dentry *dentry,
 		goto out;
 	sdcardfs_copy_and_fix_attrs(d_inode(dentry),
 			      d_inode(lower_path.dentry));
-	err = sdcardfs_fillattr(mnt, d_inode(dentry), &lower_stat, stat);
+        /* Huaqin modify for 1170275 by chenqiang at 2018/4/23 start */
+	/* err = sdcardfs_fillattr(mnt, d_inode(dentry), stat);
+	stat->blocks = lower_stat.blocks; */
+        err = sdcardfs_fillattr(mnt, d_inode(dentry), &lower_stat, stat);
+       /* Huaqin modify for 1170275 by chenqiang at 2018/4/23 end */
 out:
 	sdcardfs_put_lower_path(dentry, &lower_path);
 	return err;

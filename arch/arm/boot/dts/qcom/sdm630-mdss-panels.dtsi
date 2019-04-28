@@ -17,6 +17,7 @@
 #include "dsi-panel-truly-1080p-video.dtsi"
 #include "dsi-panel-rm67195-amoled-fhd-cmd.dtsi"
 #include "dsi-panel-sharp-split-link-wuxga-video.dtsi"
+#include "dsi-panel-auo-ft8716f-5p9-fhd-video.dtsi"
 
 &soc {
 	dsi_panel_pwr_supply: dsi_panel_pwr_supply {

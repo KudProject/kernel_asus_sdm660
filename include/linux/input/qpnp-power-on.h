@@ -59,6 +59,9 @@ enum pon_restart_reason {
 	PON_RESTART_REASON_DMVERITY_CORRUPTED	= 0x04,
 	PON_RESTART_REASON_DMVERITY_ENFORCE	= 0x05,
 	PON_RESTART_REASON_KEYS_CLEAR		= 0x06,
+	/* Huaqin add for ZQL1650-1168 by liunianliang at 2018/04/18 start */
+	PON_RESTART_REASON_ASUS_UNLOCK		= 0x08,
+	/* Huaqin add for ZQL1650-1168 by liunianliang at 2018/04/18 end */
 
 	/* 32 ~ 63 for OEMs/ODMs secific features */
 	PON_RESTART_REASON_OEM_MIN		= 0x20,
