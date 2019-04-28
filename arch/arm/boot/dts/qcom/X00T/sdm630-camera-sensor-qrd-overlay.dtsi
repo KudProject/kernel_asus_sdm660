@@ -62,7 +62,7 @@
 					"CAM_RESET1",
 					"CAM_VDIG1";
 		qcom,sensor-position = <1>;
-		clocks = <&clock_mmss MCLK2_CLK_SRC>,
+		clocks = <&clock_mmss MCLK1_CLK_SRC>,
 			<&clock_mmss MMSS_CAMSS_MCLK1_CLK>;
 		};
 

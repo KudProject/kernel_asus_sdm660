@@ -1,10 +1,6 @@
 /* SPDX-License-Identifier: GPL-2.0 */
 
 / {
-	chosen {
-		bootargs = "rcupdate.rcu_expedited=1 printk.always_kmsg_dump=1";
-	};
-
 	reserved-memory {
 		pstore_reserve_mem: pstore_reserve_mem_region@0 {
 			linux,reserve-contiguous-region;
