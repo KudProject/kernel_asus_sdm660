@@ -148,4 +148,8 @@ config QCACLD_FEATURE_METERING
 	bool "Stats & Quota Metering feature"
 	default n
 
+config WLAN_FEATURE_PKT_CAPTURE
+	bool "Enable packet capture feature"
+	default n
+
 endif # QCA_CLD_WLAN
