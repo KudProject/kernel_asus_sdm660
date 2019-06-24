@@ -401,7 +401,7 @@ const uint16_t touch_key_array[TOUCH_KEY_NUM] = {
 #define GESTURE_EVENT_SWIPE_LEFT        257
 #define GESTURE_EVENT_SWIPE_RIGHT       258
 /* Huaqin modify gesture keycode by yuexinghan 20171109 start */
-#define GESTURE_EVENT_DOUBLE_CLICK 260
+#define GESTURE_EVENT_DOUBLE_CLICK KEY_WAKEUP
 /* Huaqin modify gesture keycode by yuexinghan 20171109 end */
 
 const uint16_t gesture_key_array[] = {
@@ -1085,19 +1085,19 @@ void nvt_ts_wakeup_gesture_report(uint8_t gesture_id)
 
 	switch (gesture_id) {
 		case ID_GESTURE_WORD_C:
-			if (allow_gesture) {
+			if (screen_gesture) {
 				NVT_LOG("Gesture : Word-C.\n");
 				keycode = gesture_key_array[0];
 			}
 			break;
 		case ID_GESTURE_WORD_W:
-			if (allow_gesture) {
+			if (screen_gesture) {
 				NVT_LOG("Gesture : Word-W.\n");
 				keycode = gesture_key_array[1];
 			}
 			break;
 		case ID_GESTURE_WORD_V:
-			if (allow_gesture) {
+			if (screen_gesture) {
 				NVT_LOG("Gesture : Word-V.\n");
 				keycode = gesture_key_array[2];
 			}
@@ -1110,7 +1110,7 @@ void nvt_ts_wakeup_gesture_report(uint8_t gesture_id)
 			}
 			break;
 		case ID_GESTURE_WORD_Z:
-			if (allow_gesture) {
+			if (screen_gesture) {
 				NVT_LOG("Gesture : Word-Z.\n");
 				keycode = gesture_key_array[4];
 			}
@@ -1124,37 +1124,37 @@ void nvt_ts_wakeup_gesture_report(uint8_t gesture_id)
 			keycode = gesture_key_array[6];
 			break; */
 		case ID_GESTURE_WORD_e:
-			if (allow_gesture) {
+			if (screen_gesture) {
 				NVT_LOG("Gesture : Word-e.\n");
 				keycode = gesture_key_array[7];
 			}
 			break;
 		case ID_GESTURE_WORD_S:
-			if (allow_gesture) {
+			if (screen_gesture) {
 				NVT_LOG("Gesture : Word-S.\n");
 				keycode = gesture_key_array[8];
 			}
 			break;
 		case ID_GESTURE_SLIDE_UP:
-			if (allow_gesture) {
+			if (screen_gesture) {
 				NVT_LOG("Gesture : Slide UP.\n");
 				keycode = gesture_key_array[9];
 			}
 			break;
 		case GESTURE_SLIDE_DOWN:
-                        if (allow_gesture) {
+                        if (screen_gesture) {
 				NVT_LOG("Gesture : Slide DOWN.\n");
 				keycode = gesture_key_array[10];
                         }
 			break;
 		case GESTURE_SLIDE_LEFT:
-                        if (allow_gesture) {
+                        if (screen_gesture) {
 				NVT_LOG("Gesture : Slide LEFT.\n");
 				keycode = gesture_key_array[11];
                         }
 			break;
 		case GESTURE_SLIDE_RIGHT:
-                        if (allow_gesture) {
+                        if (screen_gesture) {
 				NVT_LOG("Gesture : Slide RIGHT.\n");
 				keycode = gesture_key_array[12];
 			}
@@ -1166,9 +1166,9 @@ void nvt_ts_wakeup_gesture_report(uint8_t gesture_id)
 
 	if (keycode > 0 ) {
 		if (is_double_tap == 1) {
-			input_report_key(ts->input_dev, keycode, 1);
+			input_report_key(ts->input_dev, GESTURE_EVENT_DOUBLE_CLICK, 1);
 			input_sync(ts->input_dev);
-			input_report_key(ts->input_dev, keycode, 0);
+			input_report_key(ts->input_dev, GESTURE_EVENT_DOUBLE_CLICK, 0);
 			input_sync(ts->input_dev);
 			is_double_tap = 0;
 		} else {
