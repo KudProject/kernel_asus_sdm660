@@ -248,10 +248,12 @@
 	qcom,battery-thermal-coefficients = [9d 50 ff];
 };
 
-&pm660_haptics {
+/* Huaqin modify for TT1308440 by liunianliang at 2019/05/27 start */
+/*&pm660_haptics {
 	qcom,wave-play-rate-us = <4255>;
 	qcom,vmax-mv = <1800>;
-};
+};*/
+/* Huaqin modify for TT1308440 by liunianliang at 2019/05/27 end */
 
 &i2c_2 {
 	status = "ok";
